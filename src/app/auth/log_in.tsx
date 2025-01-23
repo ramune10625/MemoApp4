@@ -1,10 +1,10 @@
 import { 
-  View, Text, TouchableOpacity ,StyleSheet
+  View, Text, TextInput, TouchableOpacity ,StyleSheet
  } from 'react-native'
 import { Link, router } from 'expo-router'
+import { useState } from 'react'
 
 import Button from '../../components/Button'
-import TextForm from '../../components/TextForm'
 
 const handlePress = (): void => {
   // ログイン
@@ -12,12 +12,30 @@ const handlePress = (): void => {
 }
 
 const LogIn = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
         <Text style={styles.title}>Log In</Text>
-        <TextForm value='Email address' />
-        <TextForm value='Password' />
+        <TextInput 
+        style={styles.input} 
+        value={email}
+        onChangeText={(text) => { setEmail(text) }} 
+        autoCapitalize='none' 
+        keyboardType='email-address' 
+        placeholder='Email Address' 
+        textContentType='emailAddress' 
+        />
+        <TextInput 
+        style={styles.input} 
+        value={password}
+        onChangeText={(text) => { setPassword(text) }} 
+        autoCapitalize='none' 
+        secureTextEntry 
+        placeholder='Password' 
+        textContentType='password' 
+        />
         <Button label='Log In' onPress={handlePress}/>
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not registerd?</Text>
@@ -60,7 +78,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 24,
     color: '#467FD3'
-  }
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#DDDDDD',
+    backgroundColor: '#ffffff',
+    height: 48,
+    padding: 8,
+    fontSize: 16,
+    marginBottom: 16
+  },
 })
 
 export default LogIn
